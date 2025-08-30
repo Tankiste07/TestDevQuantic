@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/Tankiste07/TestDevQuantic/issues"
   },
-  "homepage": "https://github.com/Tankiste07/TestDevQuantic#readme"
+  "homepage": "https://github.com/Tankiste07/TestDevQuantic#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
 }
