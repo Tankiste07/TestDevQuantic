@@ -1,0 +1,104 @@
+body {
+    background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* TITRES */
+h1 {
+    text-align: center;
+    font-family: 'Nexa', 'Segoe UI', Arial, sans-serif; /* police Nexa prioritaire */
+    color: #5f259f; /* couleur principale */
+    margin-top: 40px;
+    margin-bottom: 30px;
+}
+
+/* FORMULAIRE */
+form {
+    background: #fff;
+    max-width: 500px;
+    margin: 30px auto;
+    padding: 30px 25px 20px 25px;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(44, 62, 80, 0.08);
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #34495e;
+    font-weight: 500;
+}
+
+select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #bfc9d3;
+    border-radius: 8px;
+    background: #f7fafd;
+    font-size: 16px;
+    margin-bottom: 18px;
+    transition: border-color 0.2s;
+}
+
+select:focus {
+    border-color: #5f259f; /* couleur principale */
+    outline: none;
+}
+
+p {
+    color: #2d3a4a;
+    font-size: 17px;
+    margin-bottom: 10px;
+}
+
+/* BOUTON */
+.button {
+    text-align: center;
+    margin-top: 20px;
+}
+
+button[type="submit"] {
+    background: #5f259f; /* couleur principale */
+    color: #fff;
+    border: none;
+    padding: 10px 32px;
+    border-radius: 8px;
+    font-size: 17px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(44, 62, 80, 0.08);
+    transition: background 0.2s;
+}
+
+button[type="submit"]:hover {
+    background: #4e1e80; /* variation plus foncée */
+}
+
+/* --- RESPONSIVE SIMPLE --- */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    form {
+        margin: 20px auto;
+        padding: 20px;
+        border-radius: 12px;
+    }
+
+    h1 {
+        font-size: 22px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    p, label, select, button[type="submit"] {
+        font-size: 15px;
+    }
+
+    button[type="submit"] {
+        width: 100%; /* bouton prend toute la largeur */
+        padding: 12px;
+    }
+}
