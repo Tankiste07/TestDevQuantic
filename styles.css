@@ -4,11 +4,25 @@ body {
     margin: 0;
     padding: 0;
 }
+@font-face {
+    font-family: 'Nexa';
+    src: url('font/Nexa-ExtraLight.ttf') format('truetype');
+    font-weight: 300; /* ExtraLight */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Nexa';
+    src: url('font/Nexa-Heavy.ttf') format('truetype');
+    font-weight: 900; /* Heavy */
+    font-style: normal;
+}
+
 
 /* TITRES */
 h1 {
     text-align: center;
-    font-family: 'Nexa', 'Segoe UI', Arial, sans-serif; /* police Nexa prioritaire */
+    font-family: 'Nexa',sans-serif; /* police Nexa prioritaire */
     color: #5f259f; /* couleur principale */
     margin-top: 40px;
     margin-bottom: 30px;
@@ -22,6 +36,8 @@ form {
     padding: 30px 25px 20px 25px;
     border-radius: 16px;
     box-shadow: 0 4px 24px rgba(44, 62, 80, 0.08);
+    box-sizing: border-box; 
+    width: 90%; /* Ajouté pour éviter que le formulaire touche les bords sur mobile */
 }
 
 label {
@@ -53,13 +69,33 @@ p {
     margin-bottom: 10px;
 }
 
+/* Champ date du formulaire */
+input[type="date"] {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px 12px;
+    border: 1px solid #bfc9d3;
+    border-radius: 8px;
+    background: #f7fafd;
+    font-size: 16px;
+    margin-bottom: 18px;
+    transition: border-color 0.2s;
+    color: #34495e;
+}
+
+input[type="date"]:focus {
+    border-color: #5f259f;
+    outline: none;
+}
+
+
 /* BOUTON */
 .button {
     text-align: center;
     margin-top: 20px;
 }
 
-button[type="submit"] {
+button[type="button"] {
     background: #5f259f; /* couleur principale */
     color: #fff;
     border: none;
@@ -71,7 +107,7 @@ button[type="submit"] {
     transition: background 0.2s;
 }
 
-button[type="submit"]:hover {
+button[type="button"]:hover {
     background: #4e1e80; /* variation plus foncée */
 }
 
@@ -85,6 +121,7 @@ button[type="submit"]:hover {
         margin: 20px auto;
         padding: 20px;
         border-radius: 12px;
+        width: 98%; /* Encore plus souple sur mobile */
     }
 
     h1 {
@@ -93,12 +130,18 @@ button[type="submit"]:hover {
         margin-bottom: 20px;
     }
 
-    p, label, select, button[type="submit"] {
+    p, label, select, button[type="button"] {
         font-size: 15px;
     }
 
-    button[type="submit"] {
+    button[type="button"] {
         width: 100%; /* bouton prend toute la largeur */
         padding: 12px;
     }
 }
+
+.nom-nexa {
+    font-family: 'Nexa', sans-serif;
+    font-weight: 900; /* Heavy */
+}
+

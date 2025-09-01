@@ -1,32 +1,39 @@
 function choixPersonnage(chaine) {
-    var a = document.getElementById("space-green");
-    var b = document.getElementById("activity");
-    var fop = document.getElementById("free-or-paid");
-    if (chaine === "cacher1") {
+    // Récupération des éléments du DOM
+    var a = document.getElementById("space-green");      // Section espaces verts
+    var b = document.getElementById("activity");         // Section activités
+    var fop = document.getElementById("free-or-paid");   // Section activités payantes ou non
+
+    // Affichage/masquage selon la sélection
+    if (chaine === "cacher1") { // Espaces verts
         a.style.display = "block";
         b.style.display = "none";
         if (fop) fop.style.display = "none";
-    } else if (chaine === "cacher2") {
+    } else if (chaine === "cacher2") { // Activités
         a.style.display = "none";
         b.style.display = "block";
         if (fop) fop.style.display = "block";
-    } else {
+    } else { // Rien sélectionné
         a.style.display = "none";
         b.style.display = "none";
         if (fop) fop.style.display = "none";
     }
 }
 
+// Fonction principale appelée lors du clic sur "Recherche"
 function fetchData() {
+    // Récupère la catégorie sélectionnée
     const category = document.getElementById('category').value;
     let arrondissement = "";
+
+    // Récupère l'arrondissement selon la catégorie
     if (category === "cacher1") {
         arrondissement = document.getElementById('arrondissement-green').value;
     } else if (category === "cacher2") {
         arrondissement = document.getElementById('arrondissement-activity').value;
     }
 
-    // Validation simple
+    // Validation
     if (!category) {
         alert("Veuillez choisir une catégorie.");
         document.getElementById('category').focus();
@@ -43,17 +50,21 @@ function fetchData() {
     }
 
     const resultsDiv = document.getElementById('results');
-    resultsDiv.innerHTML = "<p>Chargement...</p>";
 
     if (category === "cacher1") {
-        fetch("https://parisdata.opendatasoft.com/api/explore/v2.1/catalog/datasets/ilots-de-fraicheur-espaces-verts-frais/records?limit=100&offset=0&timezone=UTC&lang=fr&sort=-record_timestamp")
+        fetch("https://parisdata.opendatasoft.com/api/explore/v2.1/catalog/datasets/ilots-de-fraicheur-espaces-verts-frais/records?limit=50")
             .then(res => res.json())
             .then(data => {
-                console.log(data.results); // Ajoute ceci pour voir la structure dans la console
                 const arrondissements = data.results
                     .filter(item => item.arrondissement === arrondissement)
-                    .slice(0, 4)
-                    .map(item => `<li>${item.nom_site || "Nom inconnu"} (${item.arrondissement})</li>`);
+                    .map(item => `
+                        <li>
+                            <strong class="nom-nexa">${item.nom || item.nom_site || "Nom inconnu"}</strong><br>
+                            Activité : ${item.type || "Type inconnu"}<br>
+                            Adresse : ${item.adresse || "Adresse inconnue"}<br>
+                            Arrondissement : ${item.arrondissement || "Inconnu"}<br>
+                        </li>
+                    `);
 
                 if (arrondissements.length === 0) {
                     resultsDiv.innerHTML = "<p>Aucun résultat trouvé.</p>";
@@ -66,14 +77,32 @@ function fetchData() {
             });
 
     } else if (category === "cacher2") {
-        fetch("https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/ilots-de-fraicheur-equipements-activites/records?limit=20")
+        // Récupère la valeur du select "free-or-paid"
+        const freeOrPaid = document.getElementById("free-or-paid-select").value;
+
+        fetch("https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/ilots-de-fraicheur-equipements-activites/records?limit=50")
             .then(res => res.json())
             .then(data => {
-                console.log(data.results); // Ajoute ceci pour voir la structure dans la console
+                // Filtre sur arrondissement ET payant
                 const arrondissements = data.results
-                    .filter(item => item.arrondissement === arrondissement)
-                    .slice(0, 4)
-                    .map(item => `<li>${item.nom_equipement || "Équipement inconnu"} (${item.arrondissement})</li>`);
+                    .filter(item =>
+                        item.arrondissement === arrondissement &&
+                        (
+                            freeOrPaid === "both" ||
+                            (freeOrPaid === "yes" && item.payant === "Oui") ||
+                            (freeOrPaid === "no" && item.payant === "Non")
+                        )
+                    )
+                    .map(item => `
+                        <li>
+                            <strong class="nom-nexa">${item.nom || item.nom_equipement || "Équipement inconnu"}</strong><br>
+                            Activité : ${item.type || "Type inconnu"}<br>
+                            Adresse : ${item.adresse || "Adresse inconnue"}<br>
+                            Arrondissement : ${item.arrondissement || "Inconnu"}<br>    
+                            Payant : ${item.payant || "Inconnu"}
+                            <br>
+                        </li>
+                    `);
 
                 if (arrondissements.length === 0) {
                     resultsDiv.innerHTML = "<p>Aucun résultat trouvé.</p>";
@@ -87,3 +116,8 @@ function fetchData() {
     }
 }
 
+// Initialisation dynamique du champ date pour empêcher de choisir une date passée
+const today = new Date().toISOString().split("T")[0];
+const startInput = document.getElementById("start");
+startInput.min = today;   // Date minimale = aujourd'hui
+startInput.value = today; // Valeur par défaut

@@ -48,6 +48,7 @@
             <p>Les activités</p>
             <label for="arrondissement-activity">Choisissez un arrondissement :</label>
             <select id="arrondissement-activity" name="arrondissement-activity">
+                <option value="" disabled selected>Choisir un arrondissement</option>
                 <option value="75001">1er</option>
                 <option value="75002">2ème</option>
                 <option value="75003">3ème</option>
@@ -70,17 +71,21 @@
                 <option value="75020">20ème</option>
             </select>
             <div id="free-or-paid" style="display: none;">
-                <p>Voulez-vous faire des activités payante ou non ?</p>
-                <br>
-                <label for="free-or-paid">Votre choix :</label>
-                <select name="free-or-paid" id="free-or-paid">
-                    <option value="" disabled selected>Choisir une réponse</option>
+                <label for="free-or-paid-select">Voulez-vous faire des activités payantes ou non ?</label>
+                <select name="free-or-paid" id="free-or-paid-select">
+                    <option value="both">Les deux</option>
                     <option value="yes">Oui</option>
                     <option value="no">Non</option>
-                    <option value="both">Les deux</option>
                 </select>
             </div>
         </div>
+        <label for="start">Start date:</label>
+        <input
+            type="date"
+            id="start"
+            name="trip-start"
+            max="2025-12-31"
+        />
         <div class="button">
             <button type="button" onclick="fetchData()">Recherche</button>
         </div>
