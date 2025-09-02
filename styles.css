@@ -7,28 +7,28 @@ body {
 @font-face {
     font-family: 'Nexa';
     src: url('font/Nexa-ExtraLight.ttf') format('truetype');
-    font-weight: 300; /* ExtraLight */
+    font-weight: 300;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Nexa';
     src: url('font/Nexa-Heavy.ttf') format('truetype');
-    font-weight: 900; /* Heavy */
+    font-weight: 900; 
     font-style: normal;
 }
 
 
-/* TITRES */
+
 h1 {
     text-align: center;
-    font-family: 'Nexa',sans-serif; /* police Nexa prioritaire */
-    color: #5f259f; /* couleur principale */
+    font-family: 'Nexa',sans-serif; 
+    color: #5f259f; 
     margin-top: 40px;
     margin-bottom: 30px;
 }
 
-/* FORMULAIRE */
+
 form {
     background: #fff;
     max-width: 500px;
@@ -37,7 +37,7 @@ form {
     border-radius: 16px;
     box-shadow: 0 4px 24px rgba(44, 62, 80, 0.08);
     box-sizing: border-box; 
-    width: 90%; /* Ajouté pour éviter que le formulaire touche les bords sur mobile */
+    width: 90%; 
 }
 
 label {
@@ -59,7 +59,7 @@ select {
 }
 
 select:focus {
-    border-color: #5f259f; /* couleur principale */
+    border-color: #5f259f; 
     outline: none;
 }
 
@@ -69,7 +69,6 @@ p {
     margin-bottom: 10px;
 }
 
-/* Champ date du formulaire */
 input[type="date"] {
     width: 100%;
     box-sizing: border-box;
@@ -88,15 +87,13 @@ input[type="date"]:focus {
     outline: none;
 }
 
-
-/* BOUTON */
 .button {
     text-align: center;
     margin-top: 20px;
 }
 
 button[type="button"] {
-    background: #5f259f; /* couleur principale */
+    background: #5f259f; 
     color: #fff;
     border: none;
     padding: 10px 32px;
@@ -108,10 +105,28 @@ button[type="button"] {
 }
 
 button[type="button"]:hover {
-    background: #4e1e80; /* variation plus foncée */
+    background: #4e1e80; 
 }
 
-/* --- RESPONSIVE SIMPLE --- */
+#retryBtn {
+    display: block;
+    margin: 20px auto 0 auto;
+    background: #5f259f;
+    color: #fff;
+    border: none;
+    padding: 10px 32px;
+    border-radius: 8px;
+    font-size: 17px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(44, 62, 80, 0.08);
+    transition: background 0.2s;
+}
+
+#retryBtn:hover {
+    background: #4e1e80;
+}
+
+/* RESPONSIVE */
 @media (max-width: 600px) {
     body {
         padding: 10px;
@@ -121,7 +136,7 @@ button[type="button"]:hover {
         margin: 20px auto;
         padding: 20px;
         border-radius: 12px;
-        width: 98%; /* Encore plus souple sur mobile */
+        width: 98%;
     }
 
     h1 {
@@ -135,13 +150,13 @@ button[type="button"]:hover {
     }
 
     button[type="button"] {
-        width: 100%; /* bouton prend toute la largeur */
+        width: 100%;
         padding: 12px;
     }
 }
 
 .nom-nexa {
     font-family: 'Nexa', sans-serif;
-    font-weight: 900; /* Heavy */
+    font-weight: 900;
 }
 

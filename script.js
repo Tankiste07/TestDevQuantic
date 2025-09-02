@@ -1,3 +1,4 @@
+let offset = 50;
 function choixPersonnage(chaine) {
     // Récupération des éléments du DOM
     var a = document.getElementById("space-green");      // Section espaces verts
@@ -52,38 +53,49 @@ function fetchData() {
     const resultsDiv = document.getElementById('results');
 
     if (category === "cacher1") {
-        fetch("https://parisdata.opendatasoft.com/api/explore/v2.1/catalog/datasets/ilots-de-fraicheur-espaces-verts-frais/records?limit=50")
-            .then(res => res.json())
-            .then(data => {
-                const arrondissements = data.results
-                    .filter(item => item.arrondissement === arrondissement)
-                    .map(item => `
-                        <li>
-                            <strong class="nom-nexa">${item.nom || item.nom_site || "Nom inconnu"}</strong><br>
-                            Activité : ${item.type || "Type inconnu"}<br>
-                            Adresse : ${item.adresse || "Adresse inconnue"}<br>
-                            Arrondissement : ${item.arrondissement || "Inconnu"}<br>
-                        </li>
-                    `);
+    fetch(`https://parisdata.opendatasoft.com/api/explore/v2.1/catalog/datasets/ilots-de-fraicheur-espaces-verts-frais/records?limit=50&offset=${offset}`)
+        .then(res => res.json())
+        .then(data => {
+            console.log("Espaces verts API results:", data.results);
 
-                if (arrondissements.length === 0) {
-                    resultsDiv.innerHTML = "<p>Aucun résultat trouvé.</p>";
-                } else {
-                    resultsDiv.innerHTML = `<ul>${arrondissements.join("")}</ul>`;
-                }
-            })
-            .catch(error => {
-                resultsDiv.innerHTML = `<p> Erreur : ${error.message}</p>`;
-            });
+            const arrondissements = data.results
+                .filter(item => item.arrondissement === arrondissement)
+                .map(item => `
+                    <li>
+                        <strong class="nom-nexa">${item.nom || "Nom inconnu"}</strong><br>
+                        Activité : ${item.type || "Type inconnu"}<br>
+                        Adresse : ${item.adresse || "Adresse inconnue"}<br>
+                        Arrondissement : ${item.arrondissement || "Inconnu"}<br>
+                    </li>
+                `);
+
+            if (arrondissements.length === 0) {
+                resultsDiv.innerHTML = `
+                    <p>Aucun résultat trouvé.</p>
+                    <button id="retryBtn" type="button">Réessayer</button>
+                `;
+
+                // Boutton en cas de résultat nul permet de relancer la recherche
+                document.getElementById("retryBtn").addEventListener("click", () => {
+                    fetchAgain();
+                });
+            } else {
+                resultsDiv.innerHTML = `<ul>${arrondissements.join("")}</ul>`;
+            }
+        })
+        .catch(error => {
+            resultsDiv.innerHTML = `<p> Erreur : ${error.message}</p>`;
+        });
 
     } else if (category === "cacher2") {
-        // Récupère la valeur du select "free-or-paid"
         const freeOrPaid = document.getElementById("free-or-paid-select").value;
 
-        fetch("https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/ilots-de-fraicheur-equipements-activites/records?limit=50")
+        fetch(`https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/ilots-de-fraicheur-equipements-activites/records?limit=50&offset=${offset}`)
             .then(res => res.json())
             .then(data => {
-                // Filtre sur arrondissement ET payant
+                // Affiche dans la console les 50 résultats reçus de l'API
+                console.log("Activités API results:", data.results);
+
                 const arrondissements = data.results
                     .filter(item =>
                         item.arrondissement === arrondissement &&
@@ -105,7 +117,15 @@ function fetchData() {
                     `);
 
                 if (arrondissements.length === 0) {
-                    resultsDiv.innerHTML = "<p>Aucun résultat trouvé.</p>";
+                    resultsDiv.innerHTML = `
+                        <p>Aucun résultat trouvé.</p>
+                        <button id="retryBtn" type="button">Réessayer</button>
+                    `;
+
+                    // Boutton en cas de résultat nul permet de relancer la recherche
+                    document.getElementById("retryBtn").addEventListener("click", () => {
+                        fetchAgain();
+                    });
                 } else {
                     resultsDiv.innerHTML = `<ul>${arrondissements.join("")}</ul>`;
                 }
@@ -114,6 +134,14 @@ function fetchData() {
                 resultsDiv.innerHTML = `<p> Erreur : ${error.message}</p>`;
             });
     }
+}
+
+// Relance la recherche en allant plus loins dans les résultats
+
+function fetchAgain() {
+    offset += 50; // On augmente l'offset à chaque nouvelle tentative
+    console.log("Nouvelle tentative avec offset =", offset);
+    fetchData();
 }
 
 // Initialisation dynamique du champ date pour empêcher de choisir une date passée
