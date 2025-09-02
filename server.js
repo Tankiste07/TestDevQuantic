@@ -45,7 +45,6 @@ app.get('/espaces-verts', (req, res) => {
       .map(item => item.arrondissement); // extrait juste la valeur de l'arrondissement
 
     res.send(arrondissements75010);
-    // Exemple : ["75004", "75011", "75012", ...]
   })
   .catch(err => {
     console.error(err);

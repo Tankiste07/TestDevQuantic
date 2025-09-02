@@ -2,7 +2,7 @@ let offset = 50;
 
 // Fonction qui gère l'affichage dynamique du formulaire selon la catégorie choisie
 function handleCategoryChange(chaine) {
-    // Récupération des éléments du DOM
+    // Récupération des éléments
     var a = document.getElementById("space-green");      // Section espaces verts
     var b = document.getElementById("activity");         // Section activités
     var fop = document.getElementById("free-or-paid");   // Section activités payantes ou non
