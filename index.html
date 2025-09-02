@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Vous voulez trouver un endroit frais sur Paris ? vous êtes au bon endroit</h1>
+    <h1>Où se rafraîchir aujourd’hui à Paris ? Espaces verts, activités ou fontaines : choisissez, explorez et profitez</h1>
     <form>
         <label for="category">Vous recherchez un Espace vert ou bien une activité à faire :</label>
-        <select id="category" name="category" required onchange="choixPersonnage(this.value)">
+        <select id="category" name="category" required onchange="handleCategoryChange(this.value)">
             <option value="" disabled selected>Choisir une catégorie</option>
             <option value="cacher1">Espaces verts</option>
             <option value="cacher2">Activité</option>

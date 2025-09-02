@@ -1,4 +1,4 @@
-const express = require('express');
+/* const express = require('express');
 const app = express();
 const port = 4000;
 
@@ -35,7 +35,6 @@ if (category === "cacher1") {
   }
 }
 
-/*
 app.get('/espaces-verts', (req, res) => {
     fetch("https://parisdata.opendatasoft.com//api/explore/v2.1/catalog/datasets/ilots-de-fraicheur-espaces-verts-frais/records?limit=100&offset=0&timezone=UTC&lang=fr&sort=-record_timestamp")
     .then(res => res.json())

@@ -1,5 +1,7 @@
 let offset = 50;
-function choixPersonnage(chaine) {
+
+// Fonction qui gère l'affichage dynamique du formulaire selon la catégorie choisie
+function handleCategoryChange(chaine) {
     // Récupération des éléments du DOM
     var a = document.getElementById("space-green");      // Section espaces verts
     var b = document.getElementById("activity");         // Section activités
